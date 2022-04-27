@@ -1,0 +1,25 @@
+{
+  "name": "rpms-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anjulasjay99/rpms-backend.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anjulasjay99/rpms-backend/issues"
+  },
+  "homepage": "https://github.com/anjulasjay99/rpms-backend#readme",
+  "dependencies": {
+    "@koa/router": "^10.1.1",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0"
+  }
+}
