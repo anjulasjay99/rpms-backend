@@ -13,7 +13,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
-/* const URL = process.env.MONGODB_URL;
+/* 
+MongoDB Connection
+
+const URL = process.env.MONGODB_URL;
 
 mongoose.connect(URL, {
   useCreateIndex: true,
@@ -25,9 +28,9 @@ mongoose.connect(URL, {
 const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("Mongo DB connection success!");
-}); */
+}); 
 
-//const URL = process.env.MONGODB_URL;
+*/
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);
