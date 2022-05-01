@@ -31,6 +31,17 @@ connection.once("open", () => {
 });
 
 
+//Setting Routes
+
+const studentsRouter = require("./routes/students.js");
+const groupsRouter = require("./routes/groups.js");
+
+
+
+app.use("/students" , studentsRouter);
+app.use("/groups" , groupsRouter);
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);
