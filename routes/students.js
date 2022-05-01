@@ -37,7 +37,7 @@ router.route("/").get((req,res) =>{
 
 // Fetch all ungrouped students 
 
-router.route("/ugrstudents").get((req,res) =>{
+router.route("/ungrstudents").get((req,res) =>{
     Student.find({isGrouped : 0}).then((students) =>{
         res.json(students);
     }).catch((err) =>{

@@ -35,12 +35,12 @@ connection.once("open", () => {
 
 const studentsRouter = require("./routes/students.js");
 const groupsRouter = require("./routes/groups.js");
-
+const topicSubmissionsRouter = require("./routes/topicsRegs");
 
 
 app.use("/students" , studentsRouter);
 app.use("/groups" , groupsRouter);
-
+app.use("/topicsubs" , topicSubmissionsRouter);
 
 
 app.listen(PORT, () => {
