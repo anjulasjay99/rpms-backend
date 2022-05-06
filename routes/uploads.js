@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const fs = require("fs");
+const path = require("path");
 
 const templateDir = "./uploads/templates/";
 const markingSchemesDir = "./uploads/marking_schemes/";
@@ -26,6 +28,46 @@ router.route("/markingschemes").post((req, res) => {
     res.json(docName);
   } else {
     res.json("No file was uploaded!");
+  }
+});
+
+//get uploaded template
+router.route("/templates/:id").get((req, res) => {
+  const id = req.params.id;
+  let templates = fs.readdirSync(templateDir);
+  let file = "";
+
+  for (let i = 0; i < templates.length; i++) {
+    if (templates[i].split("-")[0] === id) {
+      file = templates[i];
+      break;
+    }
+  }
+
+  if (file !== "") {
+    res.download(path.join(__dirname, "../uploads/templates/", file));
+  } else {
+    res.sendStatus(400);
+  }
+});
+
+//get uploaded markingschemes
+router.route("/markingschemes/:id").get((req, res) => {
+  const id = req.params.id;
+  let markingschemes = fs.readdirSync(markingSchemesDir);
+  let file = "";
+
+  for (let i = 0; i < markingschemes.length; i++) {
+    if (markingschemes[i].split("-")[0] === id) {
+      file = markingschemes[i];
+      break;
+    }
+  }
+
+  if (file !== "") {
+    res.sendFile(path.join(__dirname, "../uploads/marking_schemes/", file));
+  } else {
+    res.sendStatus(400);
   }
 });
 
