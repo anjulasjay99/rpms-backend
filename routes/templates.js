@@ -38,6 +38,7 @@ router.route("/:username").post((req, res) => {
     })
     .catch((err) => {
       console.log(err);
+      res.json(err);
     });
 });
 

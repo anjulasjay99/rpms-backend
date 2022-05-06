@@ -9,6 +9,7 @@ const submissionTypeSchema = new Schema({
   isEditable: { type: Boolean, required: true },
   isMultipleSubmissions: { type: Boolean, required: true },
   visibility: { type: String, required: true },
+  totalSubmissions: { type: Number, required: true },
   createdBy: { type: String, required: true },
   dateCreated: { type: Date, required: true },
 });
