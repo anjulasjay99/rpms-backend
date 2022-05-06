@@ -36,6 +36,7 @@ router.route("/:username").post((req, res) => {
     visibility,
     createdBy: username,
     dateCreated,
+    totalSubmissions: 0,
   });
 
   newSubmissionType

@@ -7,9 +7,10 @@ const markingSchemesDir = "./uploads/marking_schemes/";
 router.route("/templates").post((req, res) => {
   if (req.files) {
     let document = req.files.template;
-    const docPath = templateDir + Date.now().toString() + "-" + document.name;
+    const docName = Date.now().toString() + "-" + document.name;
+    const docPath = templateDir + docName;
     document.mv(docPath);
-    res.json(docPath);
+    res.json(docName);
   } else {
     res.json("No file was uploaded!");
   }
@@ -19,10 +20,10 @@ router.route("/templates").post((req, res) => {
 router.route("/markingschemes").post((req, res) => {
   if (req.files) {
     let document = req.files.markingscheme;
-    const docPath =
-      markingSchemesDir + Date.now().toString() + "-" + document.name;
+    const docName = Date.now().toString() + "-" + document.name;
+    const docPath = markingSchemesDir + docName;
     document.mv(docPath);
-    res.json(docPath);
+    res.json(docName);
   } else {
     res.json("No file was uploaded!");
   }
