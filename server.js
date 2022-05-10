@@ -46,6 +46,7 @@ const submissionTypeRouter = require("./routes/submissionTypes");
 const templateRouter = require("./routes/templates");
 const uploadRouter = require("./routes/uploads");
 const adminRouter = require("./routes/admin");
+const staffRouter = require("./routes/staff-routes")
 
 app.use("/students", studentsRouter);
 app.use("/groups", groupsRouter);
@@ -56,6 +57,7 @@ app.use("/submissiontypes", submissionTypeRouter);
 app.use("/templates", templateRouter);
 app.use("/uploads", uploadRouter);
 app.use("/admins", adminRouter);
+app.use("/staff",staffRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);
