@@ -12,9 +12,9 @@ router.route("/templates").post((req, res) => {
     const docName = Date.now().toString() + "-" + document.name;
     const docPath = templateDir + docName;
     document.mv(docPath);
-    res.json(docName);
+    res.status(200).json(docName);
   } else {
-    res.json("No file was uploaded!");
+    res.status(400).json("No file was uploaded!");
   }
 });
 
@@ -25,9 +25,9 @@ router.route("/markingschemes").post((req, res) => {
     const docName = Date.now().toString() + "-" + document.name;
     const docPath = markingSchemesDir + docName;
     document.mv(docPath);
-    res.json(docName);
+    res.status(200).json(docName);
   } else {
-    res.json("No file was uploaded!");
+    res.status(400).json("No file was uploaded!");
   }
 });
 

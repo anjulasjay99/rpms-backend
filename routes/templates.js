@@ -7,10 +7,11 @@ const templateDir = "./uploads/templates/";
 router.route("/").get((req, res) => {
   Template.find()
     .then((templates) => {
-      res.json(templates);
+      res.status(200).json(templates);
     })
     .catch((err) => {
       console.log(err);
+      res.status(400).json("error");
     });
 });
 
@@ -34,11 +35,11 @@ router.route("/:username").post((req, res) => {
   newTemplate
     .save()
     .then(() => {
-      res.json("Template Added");
+      res.status(200).json("Template Added");
     })
     .catch((err) => {
       console.log(err);
-      res.json(err);
+      res.status(400).json(err);
     });
 });
 
