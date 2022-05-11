@@ -5,10 +5,11 @@ let Admin = require("../models/Admin");
 router.route("/").get((req, res) => {
   Admin.find()
     .then((admins) => {
-      res.json(admins);
+      res.status(200).json(admins);
     })
     .catch((err) => {
       console.log(err);
+      res.status(400).json("error");
     });
 });
 
@@ -26,11 +27,11 @@ router.route("/").put(async (req, res) => {
   await Admin.findOneAndUpdate({ email }, admin)
     .then(() => {
       console.log("Admin details updated");
-      res.json(true);
+      res.status(200).json(true);
     })
     .catch((err) => {
       console.log(err);
-      res.json(false);
+      res.status(400).json(false);
     });
 });
 
@@ -41,10 +42,11 @@ router.route("/:email").delete(async (req, res) => {
   await Admin.deleteOne({ email })
     .then(() => {
       console.log("Admin removed!");
+      res.status(200).json("success");
     })
     .catch((err) => {
       console.log(err);
-      res.json(false);
+      res.status(400).json(false);
     });
 });
 

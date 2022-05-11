@@ -5,10 +5,11 @@ let SubmissionType = require("../models/SubmissionTypes");
 router.route("/").get((req, res) => {
   SubmissionType.find()
     .then((submissionTypes) => {
-      res.json(submissionTypes);
+      res.status(200).json(submissionTypes);
     })
     .catch((err) => {
       console.log(err);
+      res.status(400).json("error");
     });
 });
 
@@ -42,10 +43,11 @@ router.route("/:username").post((req, res) => {
   newSubmissionType
     .save()
     .then(() => {
-      res.json("Submission Type Added");
+      res.status(200).json("Submission Type Added");
     })
     .catch((err) => {
       console.log(err);
+      res.status(400).json("error");
     });
 });
 

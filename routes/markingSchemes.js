@@ -5,10 +5,11 @@ let MarkingScheme = require("../models/MarkingSchemes");
 router.route("/").get((req, res) => {
   MarkingScheme.find()
     .then((markingSchemes) => {
-      res.json(markingSchemes);
+      res.status(200).json(markingSchemes);
     })
     .catch((err) => {
       console.log(err);
+      res.status(400).json("error");
     });
 });
 
@@ -33,11 +34,11 @@ router.route("/:username").post((req, res) => {
   newMarkingScheme
     .save()
     .then(() => {
-      res.json("Marking Scheme Added");
+      res.status(200).json("Marking Scheme Added");
     })
     .catch((err) => {
       console.log(err);
-      res.json(err);
+      res.status(400).json(err);
     });
 });
 
