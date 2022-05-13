@@ -1,5 +1,7 @@
 const router = require("express").Router();
 let Template = require("../models/Templates");
+const fs = require("fs");
+const path = require("path");
 
 const templateDir = "./uploads/templates/";
 
@@ -41,6 +43,39 @@ router.route("/:username").post((req, res) => {
       console.log(err);
       res.status(400).json(err);
     });
+});
+
+//upload a new template
+router.route("/files/upload").post((req, res) => {
+  if (req.files) {
+    let document = req.files.template;
+    const docName = Date.now().toString() + "-" + document.name;
+    const docPath = templateDir + docName;
+    document.mv(docPath);
+    res.status(200).json(docName);
+  } else {
+    res.status(400).json("No file was uploaded!");
+  }
+});
+
+//download uploaded template
+router.route("/files/download/:id").get((req, res) => {
+  const id = req.params.id;
+  let templates = fs.readdirSync(templateDir);
+  let file = "";
+
+  for (let i = 0; i < templates.length; i++) {
+    if (templates[i].split("-")[0] === id) {
+      file = templates[i];
+      break;
+    }
+  }
+
+  if (file !== "") {
+    res.download(path.join(__dirname, "../uploads/templates/", file));
+  } else {
+    res.sendStatus(400);
+  }
 });
 
 module.exports = router;

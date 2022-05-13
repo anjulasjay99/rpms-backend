@@ -44,7 +44,6 @@ const markingSchemeRouter = require("./routes/markingSchemes");
 const roleRouter = require("./routes/roles");
 const submissionTypeRouter = require("./routes/submissionTypes");
 const templateRouter = require("./routes/templates");
-const filesRouter = require("./routes/files");
 const adminRouter = require("./routes/admin");
 
 app.use("/students", studentsRouter);
@@ -54,7 +53,6 @@ app.use("/markingschemes", markingSchemeRouter);
 app.use("/roles", roleRouter);
 app.use("/submissiontypes", submissionTypeRouter);
 app.use("/templates", templateRouter);
-app.use("/files", filesRouter);
 app.use("/admins", adminRouter);
 
 app.listen(PORT, () => {
