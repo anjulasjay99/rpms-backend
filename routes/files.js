@@ -6,7 +6,7 @@ const templateDir = "./uploads/templates/";
 const markingSchemesDir = "./uploads/marking_schemes/";
 
 //upload a new template
-router.route("/templates").post((req, res) => {
+router.route("/templates/upload").post((req, res) => {
   if (req.files) {
     let document = req.files.template;
     const docName = Date.now().toString() + "-" + document.name;
@@ -19,7 +19,7 @@ router.route("/templates").post((req, res) => {
 });
 
 //upload a new marking scheme
-router.route("/markingschemes").post((req, res) => {
+router.route("/markingschemes/upload").post((req, res) => {
   if (req.files) {
     let document = req.files.markingscheme;
     const docName = Date.now().toString() + "-" + document.name;
@@ -32,7 +32,7 @@ router.route("/markingschemes").post((req, res) => {
 });
 
 //get uploaded template
-router.route("/templates/:id").get((req, res) => {
+router.route("/templates/download/:id").get((req, res) => {
   const id = req.params.id;
   let templates = fs.readdirSync(templateDir);
   let file = "";
@@ -52,7 +52,7 @@ router.route("/templates/:id").get((req, res) => {
 });
 
 //get uploaded markingschemes
-router.route("/markingschemes/:id").get((req, res) => {
+router.route("/markingschemes/download/:id").get((req, res) => {
   const id = req.params.id;
   let markingschemes = fs.readdirSync(markingSchemesDir);
   let file = "";
