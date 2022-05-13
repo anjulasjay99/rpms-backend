@@ -33,7 +33,6 @@ router.route("/add").post((req, res) => {
   } = req.body;
 
   let groupID = "RSH_GRP" + MaxID + 1;
-  const Panel = "Unassigned";
 
   //Adding Group Details to the Database
 
@@ -55,7 +54,6 @@ router.route("/add").post((req, res) => {
     S4NIC,
     S4mail,
     S4contact,
-    Panel,
   });
 
   newGroup

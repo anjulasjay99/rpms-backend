@@ -23,8 +23,6 @@ const groupSchema = new Schema({
   S4NIC: { type: String, required: true },
   S4mail: { type: String, required: true },
   S4contact: { type: String, required: true },
-
-  Panel: { type: String, required: true },
 });
 
 const Group = mongoose.model("group", groupSchema);
