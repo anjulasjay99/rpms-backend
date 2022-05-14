@@ -2,8 +2,18 @@ const router = require("express").Router();
 let Template = require("../models/Templates");
 const fs = require("fs");
 const path = require("path");
+let jwt = require("jsonwebtoken");
 
 const templateDir = "./uploads/templates/";
+
+const auth = (token) => {
+  try {
+    jwt.verify(token, "adminToken");
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
 
 //fetch all available templates
 router.route("/").get((req, res) => {
@@ -19,42 +29,52 @@ router.route("/").get((req, res) => {
 
 //add a new template
 router.route("/:username").post((req, res) => {
-  const username = req.params.username;
+  const token = req.header("x-access-token");
+  if (auth(token)) {
+    const username = req.params.username;
 
-  const { name, description, document, visibility } = req.body;
+    const { name, description, document, visibility } = req.body;
 
-  const dateCreated = new Date();
+    const dateCreated = new Date();
 
-  const newTemplate = new Template({
-    name,
-    description,
-    document,
-    visibility,
-    createdBy: username,
-    dateCreated,
-  });
-
-  newTemplate
-    .save()
-    .then(() => {
-      res.status(200).json("Template Added");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(400).json(err);
+    const newTemplate = new Template({
+      name,
+      description,
+      document,
+      visibility,
+      createdBy: username,
+      dateCreated,
     });
+
+    newTemplate
+      .save()
+      .then(() => {
+        res.status(200).json("Template Added");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
+      });
+  } else {
+    res.status(400).json("Authentication Failed!");
+  }
 });
 
 //upload a new template
 router.route("/files/upload").post((req, res) => {
-  if (req.files) {
-    let document = req.files.template;
-    const docName = Date.now().toString() + "-" + document.name;
-    const docPath = templateDir + docName;
-    document.mv(docPath);
-    res.status(200).json(docName);
+  const token = req.header("x-access-token");
+  if (auth(token)) {
+    if (req.files) {
+      let document = req.files.template;
+      const docName = Date.now().toString() + "-" + document.name;
+      const docPath = templateDir + docName;
+      document.mv(docPath);
+      res.status(200).json(docName);
+    } else {
+      res.status(400).json("No file was uploaded!");
+    }
   } else {
-    res.status(400).json("No file was uploaded!");
+    res.status(400).json("Authentication Failed!");
   }
 });
 
