@@ -34,7 +34,8 @@ router.route("/").put(async (req, res) => {
   if (auth(token)) {
     const { name, email, password, telNo, nic, role } = req.body;
     const admin = {
-      name,
+      firstName,
+      lastName,
       email,
       password,
       telNo,
@@ -93,6 +94,7 @@ router.route("/login").post(async (req, res) => {
               lastName: data.lastName,
               email: data.email,
               telNo: data.telNo,
+              role: data.role,
             },
             "adminToken"
           );
