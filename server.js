@@ -44,9 +44,9 @@ const markingSchemeRouter = require("./routes/markingSchemes");
 const roleRouter = require("./routes/roles");
 const submissionTypeRouter = require("./routes/submissionTypes");
 const templateRouter = require("./routes/templates");
-const uploadRouter = require("./routes/uploads");
 const adminRouter = require("./routes/admin");
 const staffRouter = require("./routes/staff-routes")
+const assignedPanelsRouter = require("./routes/assignedPanels");
 
 app.use("/students", studentsRouter);
 app.use("/groups", groupsRouter);
@@ -55,9 +55,9 @@ app.use("/markingschemes", markingSchemeRouter);
 app.use("/roles", roleRouter);
 app.use("/submissiontypes", submissionTypeRouter);
 app.use("/templates", templateRouter);
-app.use("/uploads", uploadRouter);
 app.use("/admins", adminRouter);
 app.use("/staff",staffRouter);
+app.use("/assignedpanels", assignedPanelsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);
