@@ -9,6 +9,7 @@ const researchTopicReg = new Schema({
     topic : {type : String , required : true},
     description : {type : String , required : true},
     supervisorId : {type : String , required : true},
+    cosupervisorId : {type : String},
     isApproved : {type : Boolean , required : true}
 });
 
