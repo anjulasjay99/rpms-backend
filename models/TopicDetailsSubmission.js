@@ -9,4 +9,5 @@ const TopicDetailsSchema = new Schema({
 });
 
 const TopicDetails = mongoose.model("topic_details" , TopicDetailsSchema);
+
 module.exports = TopicDetails;
