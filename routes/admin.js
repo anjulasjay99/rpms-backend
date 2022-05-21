@@ -32,7 +32,7 @@ router.route("/").get((req, res) => {
 router.route("/").put(async (req, res) => {
   const token = req.header("x-access-token");
   if (auth(token)) {
-    const { name, email, password, telNo, nic, role } = req.body;
+    const { firstName, lastName, email, password, telNo, nic, role } = req.body;
     const admin = {
       firstName,
       lastName,
