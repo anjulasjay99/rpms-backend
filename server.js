@@ -47,7 +47,7 @@ const templateRouter = require("./routes/templates");
 const adminRouter = require("./routes/admin");
 const staffRouter = require("./routes/staff-routes")
 const assignedPanelsRouter = require("./routes/assignedPanels");
-
+const topicDetailsSubmission = require("./routes/TopicDetailsSub");
 
 app.use("/students", studentsRouter);
 app.use("/groups", groupsRouter);
@@ -59,6 +59,7 @@ app.use("/templates", templateRouter);
 app.use("/admins", adminRouter);
 app.use("/staff",staffRouter);
 app.use("/assignedpanels", assignedPanelsRouter);
+app.use("/topicDetails" , topicDetailsSubmission);
 
 
 app.listen(PORT, () => {

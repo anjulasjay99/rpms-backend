@@ -3,12 +3,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
-  InitName: { type: String, required: true },
-  IdNumber: { type: String, required: true },
-  email: { type: String, required: true },
-  nic: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName : { type: String, required: true },
+  IdNumber: { type: String },
+  email: { type: String },
+  nic: { type: String },
   telNo: { type: String, required: true },
-  isGrouped: { type: Boolean, required: true },
+  isGrouped: { type: Boolean },
   role: { type: String, required: true },
 });
 
