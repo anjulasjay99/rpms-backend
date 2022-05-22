@@ -29,23 +29,21 @@ router.route("/").get((req, res) => {
 });
 
 //Update admin details
-router.route("/").put(async (req, res) => {
+router.route("/:id").put(async (req, res) => {
   const token = req.header("x-access-token");
   if (auth(token)) {
-    const { firstName, lastName, email, password, telNo, nic, role } = req.body;
-    const admin = {
-      firstName,
-      lastName,
-      email,
-      password,
-      telNo,
-      nic,
-      role,
-    };
+    const id = req.params.id;
+    const admin = new Admin(req.body);
 
-    await Admin.findOneAndUpdate({ email }, admin)
-      .then(() => {
-        console.log("Admin details updated");
+    await Admin.findByIdAndUpdate(id, {
+      firstName: admin.firstName,
+      lastName: admin.lastName,
+      email: admin.email,
+      password: admin.password,
+      telNo: admin.telNo,
+      role: admin.role,
+    })
+      .then((d) => {
         res.status(200).json(true);
       })
       .catch((err) => {
@@ -58,12 +56,12 @@ router.route("/").put(async (req, res) => {
 });
 
 //Remove admin
-router.route("/:email").delete(async (req, res) => {
+router.route("/:id").delete(async (req, res) => {
   const token = req.header("x-access-token");
   if (auth(token)) {
-    const email = req.params.email;
+    const id = req.params.id;
 
-    await Admin.deleteOne({ email })
+    await Admin.findByIdAndDelete(id)
       .then(() => {
         console.log("Admin removed!");
         res.status(200).json("success");
