@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let Admin = require("../models/Admin");
+let LoginActivity = require("../models/LoginActivity");
 let jwt = require("jsonwebtoken");
 
 const auth = (token) => {
@@ -9,6 +10,22 @@ const auth = (token) => {
   } catch (err) {
     return false;
   }
+};
+
+const createLoginActivity = (user) => {
+  const activity = new LoginActivity({
+    name: user.firstName + " " + user.lastName,
+    email: user.email,
+    dateAndTime: new Date(),
+  });
+  activity
+    .save()
+    .then((data) => {
+      console.log("logged", data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 //Fetch all available admins
@@ -96,6 +113,7 @@ router.route("/login").post(async (req, res) => {
             },
             "adminToken"
           );
+          createLoginActivity(data);
           //send response
           res.status(200).json({ auth: true, message: "success", user: token });
         } else {
