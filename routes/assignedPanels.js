@@ -50,4 +50,23 @@ router.route("/").post(async (req, res) => {
   }
 });
 
+//change the assigned panel
+router.route("/").put(async (req, res) => {
+  const token = req.header("x-access-token");
+  if (auth(token)) {
+    const { groupId, panel } = req.body;
+
+    await AssignedPanel.findOneAndUpdate({ groupId }, { panel })
+      .then(() => {
+        res.status(200).json("Updated Successfully!");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json("Error!");
+      });
+  } else {
+    res.status(400).json("Authentication Failed!");
+  }
+});
+
 module.exports = router;
