@@ -33,7 +33,8 @@ router.route("/:username").post((req, res) => {
   if (auth(token)) {
     const username = req.params.username;
 
-    const { name, description, document, criterias, visibility } = req.body;
+    const { name, description, document, fileId, criterias, visibility } =
+      req.body;
 
     const dateCreated = new Date();
 
@@ -41,6 +42,7 @@ router.route("/:username").post((req, res) => {
       name,
       description,
       document,
+      fileId,
       criterias,
       visibility,
       createdBy: username,
@@ -67,10 +69,11 @@ router.route("/files/upload").post((req, res) => {
   if (auth(token)) {
     if (req.files) {
       let document = req.files.markingscheme;
-      const docName = Date.now().toString() + "-" + document.name;
+      const fileId = Date.now().toString();
+      const docName = fileId + "-" + document.name;
       const docPath = markingSchemesDir + docName;
       document.mv(docPath);
-      res.status(200).json(docName);
+      res.status(200).json({ document: document.name, fileId: fileId });
     } else {
       res.status(400).json("No file was uploaded!");
     }
