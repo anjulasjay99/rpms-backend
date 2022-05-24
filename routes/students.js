@@ -5,10 +5,12 @@ let Student = require("../models/Students");
 //Student Registration
 
 router.route("/add").post((req, res) => {
-  const { InitName, IdNumber, email, nic, telNo, isGrouped, role } = req.body;
-  isGrouped = 0;
+  const { firstName, lastName , IdNumber, email, nic, telNo} = req.body;
+  const isGrouped = 0;
+  const role = "Student";
   const newStudent = new Student({
-    InitName,
+    firstName,
+    lastName,
     IdNumber,
     email,
     nic,

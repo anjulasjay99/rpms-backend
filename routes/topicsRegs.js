@@ -9,13 +9,12 @@ router.route("/add/:id").post((req,res) =>{
     
     var groupId = req.params.id;
     var isApproved = 0;
-    const {field , topic , description , supervisorId} = req.body;
+    const {field , topic  , supervisorId} = req.body;
 
     const newTopicReg = new TopicReg({
         groupId , 
         field ,
         topic ,
-        description,
         supervisorId,
         isApproved
     })
@@ -33,6 +32,17 @@ router.route("/add/:id").post((req,res) =>{
 router.route("/").get((req,res) =>{
     TopicReg.find().then((submissions) =>{
         res.json(submissions);
+    }).catch((err) =>{
+        console.log(err);
+    })
+})
+
+// Get all topics by group ID 
+
+router.route("/getByStudent/:id").get((req,res) =>{
+    const grpID = req.params.id;
+    TopicReg.find({groupId : grpID }).then((topics) =>{
+        res.json(topics);
     }).catch((err) =>{
         console.log(err);
     })
