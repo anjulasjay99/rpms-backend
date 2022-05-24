@@ -7,9 +7,9 @@ const adminSchema = new Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  nic: { type: String, required: true },
   telNo: { type: String, required: true },
   role: { type: String, required: true },
+  dateCreated: { type: String, required: true },
 });
 
 const Admin = mongoose.model("admin", adminSchema);

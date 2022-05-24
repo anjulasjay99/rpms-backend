@@ -37,6 +37,7 @@ router.route("/").get((req,res) =>{
     })
 })
 
+
 // Get all topics by group ID 
 
 router.route("/getByStudent/:id").get((req,res) =>{
@@ -47,6 +48,7 @@ router.route("/getByStudent/:id").get((req,res) =>{
         console.log(err);
     })
 })
+
 
 // Request CoSupervisor 
 

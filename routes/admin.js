@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let Admin = require("../models/Admin");
+let LoginActivity = require("../models/LoginActivity");
 let jwt = require("jsonwebtoken");
 
 const auth = (token) => {
@@ -9,6 +10,22 @@ const auth = (token) => {
   } catch (err) {
     return false;
   }
+};
+
+const createLoginActivity = (user) => {
+  const activity = new LoginActivity({
+    name: user.firstName + " " + user.lastName,
+    email: user.email,
+    dateAndTime: new Date(),
+  });
+  activity
+    .save()
+    .then((data) => {
+      console.log("logged", data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 //Fetch all available admins
@@ -29,23 +46,21 @@ router.route("/").get((req, res) => {
 });
 
 //Update admin details
-router.route("/").put(async (req, res) => {
+router.route("/:id").put(async (req, res) => {
   const token = req.header("x-access-token");
   if (auth(token)) {
-    const { name, email, password, telNo, nic, role } = req.body;
-    const admin = {
-      firstName,
-      lastName,
-      email,
-      password,
-      telNo,
-      nic,
-      role,
-    };
+    const id = req.params.id;
+    const admin = new Admin(req.body);
 
-    await Admin.findOneAndUpdate({ email }, admin)
-      .then(() => {
-        console.log("Admin details updated");
+    await Admin.findByIdAndUpdate(id, {
+      firstName: admin.firstName,
+      lastName: admin.lastName,
+      email: admin.email,
+      password: admin.password,
+      telNo: admin.telNo,
+      role: admin.role,
+    })
+      .then((d) => {
         res.status(200).json(true);
       })
       .catch((err) => {
@@ -58,12 +73,12 @@ router.route("/").put(async (req, res) => {
 });
 
 //Remove admin
-router.route("/:email").delete(async (req, res) => {
+router.route("/:id").delete(async (req, res) => {
   const token = req.header("x-access-token");
   if (auth(token)) {
-    const email = req.params.email;
+    const id = req.params.id;
 
-    await Admin.deleteOne({ email })
+    await Admin.findByIdAndDelete(id)
       .then(() => {
         console.log("Admin removed!");
         res.status(200).json("success");
@@ -98,6 +113,7 @@ router.route("/login").post(async (req, res) => {
             },
             "adminToken"
           );
+          createLoginActivity(data);
           //send response
           res.status(200).json({ auth: true, message: "success", user: token });
         } else {
