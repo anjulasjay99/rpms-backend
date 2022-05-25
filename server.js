@@ -48,7 +48,11 @@ const adminRouter = require("./routes/admin");
 const staffRouter = require("./routes/staff-routes");
 const assignedPanelsRouter = require("./routes/assignedPanels");
 const topicDetailsSubmission = require("./routes/TopicDetailsSub");
+
+const topicReg = require("./routes/topicsRegs");
+
 const loginActivityRouter = require("./routes/loginActivities");
+
 
 app.use("/students", studentsRouter);
 app.use("/groups", groupsRouter);
@@ -60,8 +64,13 @@ app.use("/templates", templateRouter);
 app.use("/admins", adminRouter);
 app.use("/staff", staffRouter);
 app.use("/assignedpanels", assignedPanelsRouter);
+
+app.use("/topicDetails" , topicDetailsSubmission);
+app.use("/topicReg" , topicReg);
+
 app.use("/topicDetails", topicDetailsSubmission);
 app.use("/loginactivities", loginActivityRouter);
+
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);

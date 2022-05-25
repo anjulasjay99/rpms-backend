@@ -9,13 +9,12 @@ router.route("/add/:id").post((req,res) =>{
     
     var groupId = req.params.id;
     var isApproved = "Pending";
-    const {field , topic , description , supervisorId} = req.body;
+    const {field , topic  , supervisorId} = req.body;
 
     const newTopicReg = new TopicReg({
         groupId , 
         field ,
         topic ,
-        description,
         supervisorId,
         isApproved
     })
@@ -47,7 +46,6 @@ router.route("/update/:id").put(function (req, res) {
       TopicReg.groupId = req.body.groupId;
       TopicReg.field = req.body.field;
       TopicReg.topic = req.body.topic;
-      TopicReg.description = req.body.description;
       TopicReg.supervisorId = req.body.supervisorId;
       TopicReg.isApproved = req.body.isApproved;
       TopicReg
@@ -72,6 +70,19 @@ router.route("/").get((req,res) =>{
         console.log(err);
     })
 })
+
+
+// Get all topics by group ID 
+
+router.route("/getByStudent/:id").get((req,res) =>{
+    const grpID = req.params.id;
+    TopicReg.find({groupId : grpID }).then((topics) =>{
+        res.json(topics);
+    }).catch((err) =>{
+        console.log(err);
+    })
+})
+
 
 // Request CoSupervisor 
 
