@@ -10,7 +10,7 @@ const researchTopicReg = new Schema({
     description : {type : String , required : true},
     supervisorId : {type : String , required : true},
     cosupervisorId : {type : String},
-    isApproved : {type : Boolean , required : true}
+    isApproved : {type : String , required : true}
 });
 
 const TopicReg = mongoose.model("topicreg" , researchTopicReg);
