@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const submissionTypeSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: false },
-  isFileUpload: { type: Boolean, required: true },
+  templateId: { type: String, required: true },
   isEditable: { type: Boolean, required: true },
   isMultipleSubmissions: { type: Boolean, required: true },
   visibility: { type: String, required: true },
