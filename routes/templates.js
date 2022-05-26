@@ -100,6 +100,7 @@ router.route("/files/download/:id").get((req, res) => {
   }
 });
 
+
 //Fetch Template by Name
 
 router.route("/getbyName/:name").get((req,res) =>{
@@ -111,5 +112,18 @@ router.route("/getbyName/:name").get((req,res) =>{
     console.log(err);
   })
 })
+
+//Fetch Template by Id
+router.route("/:id").get((req, res) => {
+  const id = req.params.id;
+  Template.findById(id)
+    .then((template) => {
+      res.json(template).status(200);
+    })
+    .catch((err) => {
+      res.status(400).json("Error");
+      console.log(err);
+    });
+});
 
 module.exports = router;
