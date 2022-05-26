@@ -33,7 +33,7 @@ router.route("/:username").post((req, res) => {
     const {
       name,
       description,
-      isFileUpload,
+      templateId,
       isEditable,
       isMultipleSubmissions,
       visibility,
@@ -44,7 +44,7 @@ router.route("/:username").post((req, res) => {
     const newSubmissionType = new SubmissionType({
       name,
       description,
-      isFileUpload,
+      templateId,
       isEditable,
       isMultipleSubmissions,
       visibility,
