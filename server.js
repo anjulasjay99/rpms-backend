@@ -53,6 +53,8 @@ const topicReg = require("./routes/topicsRegs");
 
 const loginActivityRouter = require("./routes/loginActivities");
 
+const submissions = require("./routes/submissions");
+
 app.use("/students", studentsRouter);
 app.use("/groups", groupsRouter);
 app.use("/topicsubs", topicSubmissionsRouter);
@@ -69,6 +71,8 @@ app.use("/topicReg", topicReg);
 
 app.use("/topicDetails", topicDetailsSubmission);
 app.use("/loginactivities", loginActivityRouter);
+
+app.use("/submissions" , submissions);
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);

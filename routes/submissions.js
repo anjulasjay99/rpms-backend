@@ -12,7 +12,7 @@ router.route("/add").post((req,res) =>{
 
 
     const {GroupId , submissionType , document } = req.body;
-
+    console.log(document);
     const newSubmission = new Submission({
         GroupId,
         submissionType,
@@ -48,3 +48,5 @@ router.route("/submitDoc").post((req,res) =>{
         res.json("File not uploaded !");
     }
 })
+
+module.exports = router;
