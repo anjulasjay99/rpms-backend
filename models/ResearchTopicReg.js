@@ -7,7 +7,7 @@ const researchTopicReg = new Schema({
     groupId : {type : String , required : true},
     field : {type : String , required : true},
     topic : {type : String , required : true},
-    description : {type : String , required : true},
+ //   description : {type : String , required : true},
     supervisorId : {type : String , required : true},
     cosupervisorId : {type : String},
     isApproved : {type : String , required : true}
