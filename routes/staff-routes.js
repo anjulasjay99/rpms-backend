@@ -67,4 +67,19 @@ staffRouter.route("/delete/:id").delete((req, res) => {
     });
 });
 
+//fetch supervisors
+
+staffRouter.route("/getSupervisors").get((req,res) =>{
+  const p_role = "supervisor"
+  model
+    .find({role : p_role })
+    .then((supervisors) =>{
+      res.json(supervisors);
+      res.status(200);
+    }).catch((err) =>{
+      console.log(err);
+      res.status(400);
+    })
+})
+
 module.exports = staffRouter;

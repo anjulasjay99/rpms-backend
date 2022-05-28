@@ -74,7 +74,7 @@ router.route("/").get((req,res) =>{
 
 // Get all topics by group ID 
 
-router.route("/getByStudent/:id").get((req,res) =>{
+router.route("/getByGroup/:id").get((req,res) =>{
     const grpID = req.params.id;
     TopicReg.find({groupId : grpID }).then((topics) =>{
         res.json(topics);
