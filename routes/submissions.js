@@ -49,4 +49,17 @@ router.route("/submitDoc").post((req,res) =>{
     }
 })
 
+//get submission by type
+router.route("/get/:submissionType").get(async(req,res)=>{
+    let submissionType = req.params.submissionType;
+    await Submission.find({submissionType}).then((submissions)=>{
+        res.json(submissions);
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+})
+
+
+
 module.exports = router;
