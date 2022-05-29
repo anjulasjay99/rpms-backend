@@ -36,7 +36,7 @@ router.route("/:username").post((req, res) => {
     const { name, description, document, fileId, criterias, visibility } =
       req.body;
 
-    const dateCreated = new Date();
+    const dateCreated = new Date().toUTCString();
 
     const newMarkingScheme = new MarkingScheme({
       name,
