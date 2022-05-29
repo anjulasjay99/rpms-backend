@@ -16,7 +16,7 @@ const createLoginActivity = (user) => {
   const activity = new LoginActivity({
     name: user.firstName + " " + user.lastName,
     email: user.email,
-    dateAndTime: new Date(),
+    dateAndTime: new Date().toUTCString(),
   });
   activity
     .save()

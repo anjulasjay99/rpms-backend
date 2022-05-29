@@ -39,7 +39,7 @@ router.route("/:username").post((req, res) => {
       visibility,
     } = req.body;
 
-    const dateCreated = new Date();
+    const dateCreated = new Date().toUTCString();
 
     const newSubmissionType = new SubmissionType({
       name,

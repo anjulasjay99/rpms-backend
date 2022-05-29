@@ -28,7 +28,7 @@ router.route("/").post(async (req, res) => {
   const token = req.header("x-access-token");
   if (auth(token)) {
     const { groupId, panel } = req.body;
-    const dateAssigned = new Date();
+    const dateAssigned = new Date().toUTCString();
 
     const newPanel = new AssignedPanel({
       groupId,
