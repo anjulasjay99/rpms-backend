@@ -13,15 +13,14 @@ router.route("/add").post((req,res) =>{
     const p_date = new Date();
 
 
-    const {GroupId , submissionType , document,  docfileID } = req.body;
-    const fileId = docfileID ; 
-    console.log(fileId)
+    const {GroupId , submissionType , document,  docfileId } = req.body;
+    console.log(docfileId)
     console.log(document);
     const newSubmission = new Submission({
         GroupId,
         submissionType,
         document,
-        fileId,
+        docfileId,
         submissionDate : p_date,
         marks : p_marks,
     
@@ -82,6 +81,7 @@ router.route("/getsubmission/:id").get(async(req,res) =>{
 //download document
 router.route("/files/download/:id").get((req, res) => {
     const id = req.params.id;
+    console.log(id)
     let documents = fs.readdirSync(documentDir);
     let file = "";
   
