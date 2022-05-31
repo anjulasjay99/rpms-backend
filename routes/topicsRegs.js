@@ -86,7 +86,7 @@ router.route("/getByGroup/:id").get((req,res) =>{
 
 // Request CoSupervisor 
 
-router.route("/:id").get((req,res) =>{
+router.route("coSupervisor/:id").put((req,res) =>{
     const grpID = req.params.id;
     const {coSupervisorID} = req.body;
 

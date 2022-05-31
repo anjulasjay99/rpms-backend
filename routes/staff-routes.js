@@ -82,4 +82,19 @@ staffRouter.route("/getSupervisors").get((req,res) =>{
     })
 })
 
+// fetch co-supervisors
+
+staffRouter.route("/getcoSupervisors").get((req,res) =>{
+  const p_role = "co-supervisor"
+  model
+    .find({role : p_role })
+    .then((cos) =>{
+      res.json(cos);
+      res.status(200);
+    }).catch((err) =>{
+      console.log(err);
+      res.status(400);
+    })
+})
+
 module.exports = staffRouter;
