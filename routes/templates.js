@@ -35,7 +35,7 @@ router.route("/:username").post((req, res) => {
 
     const { name, description, document, fileId, visibility } = req.body;
 
-    const dateCreated = new Date();
+    const dateCreated = new Date().toUTCString();
 
     const newTemplate = new Template({
       name,
@@ -98,6 +98,33 @@ router.route("/files/download/:id").get((req, res) => {
   } else {
     res.sendStatus(400);
   }
+});
+
+//Fetch Template by Name
+
+router.route("/getbyName/:name").get((req, res) => {
+  const p_name = req.params.name;
+  Template.find({ name: p_name })
+    .then((templates) => {
+      console.log(templates);
+      res.json(templates).status(200);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//Fetch Template by Id
+router.route("/:id").get((req, res) => {
+  const id = req.params.id;
+  Template.findById(id)
+    .then((template) => {
+      res.json(template).status(200);
+    })
+    .catch((err) => {
+      res.status(400).json("Error");
+      console.log(err);
+    });
 });
 
 module.exports = router;

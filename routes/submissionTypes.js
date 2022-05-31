@@ -33,18 +33,18 @@ router.route("/:username").post((req, res) => {
     const {
       name,
       description,
-      isFileUpload,
+      templateId,
       isEditable,
       isMultipleSubmissions,
       visibility,
     } = req.body;
 
-    const dateCreated = new Date();
+    const dateCreated = new Date().toUTCString();
 
     const newSubmissionType = new SubmissionType({
       name,
       description,
-      isFileUpload,
+      templateId,
       isEditable,
       isMultipleSubmissions,
       visibility,

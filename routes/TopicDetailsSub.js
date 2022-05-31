@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 let TopicDetailsSub = require("../models/TopicDetailsSubmission");
 
-const templateDir = ("./uploads/documents/");
+const documentDir = ("./uploads/documents/");
 
 //Submission of Topic Details to panel
 
@@ -32,7 +32,7 @@ router.route("/add").post((req,res) =>{
 router.route("/files/upload").post((req,res) =>{
     let document = req.files.document;
     const docName = Date.now().toString() + "-" + document.name;
-    const docPath = templateDir + docName;
+    const docPath = documentDir + docName;
     document.mv(docPath);
     res.status(200).json(docName);
 

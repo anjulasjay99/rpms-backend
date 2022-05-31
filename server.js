@@ -8,7 +8,7 @@ const fileUpload = require("express-fileupload");
 const app = express();
 dotenv.config();
 
-const PORT = process.env.port || 8070;
+const PORT = process.env.PORT || 8070;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -53,6 +53,7 @@ const topicReg = require("./routes/topicsRegs");
 
 const loginActivityRouter = require("./routes/loginActivities");
 
+const submissions = require("./routes/submissions");
 
 app.use("/students", studentsRouter);
 app.use("/groups", groupsRouter);
@@ -65,12 +66,13 @@ app.use("/admins", adminRouter);
 app.use("/staff", staffRouter);
 app.use("/assignedpanels", assignedPanelsRouter);
 
-app.use("/topicDetails" , topicDetailsSubmission);
-app.use("/topicReg" , topicReg);
+app.use("/topicDetails", topicDetailsSubmission);
+app.use("/topicReg", topicReg);
 
 app.use("/topicDetails", topicDetailsSubmission);
 app.use("/loginactivities", loginActivityRouter);
 
+app.use("/submissions" , submissions);
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);

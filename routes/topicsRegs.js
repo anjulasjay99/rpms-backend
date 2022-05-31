@@ -8,7 +8,7 @@ let TopicReg = require("../models/ResearchTopicReg");
 router.route("/add/:id").post((req,res) =>{
     
     var groupId = req.params.id;
-    var isApproved = 0;
+    var isApproved = "Pending";
     const {field , topic  , supervisorId} = req.body;
 
     const newTopicReg = new TopicReg({
@@ -26,6 +26,40 @@ router.route("/add/:id").post((req,res) =>{
     })
 })
 
+//get topic submission details of specif supervisor
+router.route("/get/:supervisorId").get(async(req,res)=>{
+        let supervisorId = req.params.supervisorId;
+        await TopicReg.find({supervisorId}).then((submissions)=>{
+            res.json(submissions);
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+})
+
+
+//update the topicsubmission
+router.route("/update/:id").put(function (req, res) {
+    TopicReg.findById(req.params.id, function (err, TopicReg) {
+      if (!TopicReg) res.status(404).send("id not found");
+      else 
+      TopicReg.groupId = req.body.groupId;
+      TopicReg.field = req.body.field;
+      TopicReg.topic = req.body.topic;
+      TopicReg.supervisorId = req.body.supervisorId;
+      TopicReg.isApproved = req.body.isApproved;
+      TopicReg
+        .save()
+        .then((TopicReg) => {
+            console.log(TopicReg)
+          res.json("Suceessfully updated!");
+        })
+        .catch((err) => {
+          res.status(400).send("Update not possible");
+        });
+    });
+  });
+
 
 //Get all topic submissions 
 
@@ -40,7 +74,7 @@ router.route("/").get((req,res) =>{
 
 // Get all topics by group ID 
 
-router.route("/getByStudent/:id").get((req,res) =>{
+router.route("/getByGroup/:id").get((req,res) =>{
     const grpID = req.params.id;
     TopicReg.find({groupId : grpID }).then((topics) =>{
         res.json(topics);
