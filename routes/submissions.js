@@ -13,14 +13,18 @@ router.route("/add").post((req,res) =>{
     const p_date = new Date();
 
 
-    const {GroupId , submissionType , document } = req.body;
+    const {GroupId , submissionType , document,  docfileID } = req.body;
+    const fileId = docfileID ; 
+    console.log(fileId)
     console.log(document);
     const newSubmission = new Submission({
         GroupId,
         submissionType,
         document,
+        fileId,
         submissionDate : p_date,
-        marks : p_marks
+        marks : p_marks,
+    
 
     });
 
