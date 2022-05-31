@@ -16,7 +16,7 @@ const createLoginActivity = (user) => {
   const activity = new LoginActivity({
     name: user.firstName + " " + user.lastName,
     email: user.email,
-    dateAndTime: new Date(),
+    dateAndTime: new Date().toUTCString(),
   });
   activity
     .save()
@@ -127,6 +127,18 @@ router.route("/login").post(async (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ auth: false, message: err });
+    });
+});
+
+//get total number of admin users
+router.route("/totalusers").get((req, res) => {
+  Admin.countDocuments()
+    .then((count) => {
+      res.status(200).json({ total: count });
+    })
+    .catch((err) => {
+      res.status(400).json("Error");
+      console.log(err);
     });
 });
 

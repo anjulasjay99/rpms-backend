@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const router = require("express").Router();
 
 let Submission = require("../models/Documentsubmissions");
@@ -48,5 +50,73 @@ router.route("/submitDoc").post((req,res) =>{
         res.json("File not uploaded !");
     }
 })
+
+//get submission by type
+router.route("/get/:submissionType").get(async(req,res)=>{
+    let submissionType = req.params.submissionType;
+    await Submission.find({submissionType}).then((submissions)=>{
+        res.json(submissions);
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+})
+
+//get submission by Id
+router.route("/getsubmission/:id").get(async(req,res) =>{
+    const id = req.params.id;
+    console.log(id);
+    await Submission.findById(id).then((submissions)=>{
+      res.json(submissions);
+      console.log(submissions)
+    }).catch((err) =>{
+      console.log(err);
+    })
+  })
+  
+
+//download document
+router.route("/files/download/:id").get((req, res) => {
+    const id = req.params.id;
+    let documents = fs.readdirSync(documentDir);
+    let file = "";
+  
+    for (let i = 0; i < documents.length; i++) {
+      if (documents[i].split("-")[0] === id) {
+        file = documents[i];
+        break;
+      }
+    }
+  
+    if (file !== "") {
+      res.sendFile(path.join(__dirname, "../uploads/documents/", file));
+    } else {
+      res.sendStatus(400);
+    }
+  });
+
+  //update the documents
+  router.route("/update/:id").put(function (req, res) {
+    Submission.findById(req.params.id, function (err, Submission) {
+        if (!Submission) res.status(404).send("id not found");
+        else 
+        Submission.GroupId = req.body.GroupId;
+        Submission.submissionType = req.body.submissionType;
+        Submission.document = req.body.doc;
+        Submission.submissionDate = req.body.submissionDate;
+        Submission.marks = req.body.marks;
+        Submission
+          .save()
+          .then((Submission) => {
+              console.log(Submission)
+            res.json("Suceessfully updated!");
+          })
+          .catch((err) => {
+            res.status(400).send("Update not possible");
+            console.log(err)
+          });
+      });
+    });
+
 
 module.exports = router;
