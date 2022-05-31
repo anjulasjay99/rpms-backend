@@ -28,4 +28,21 @@ router.route("/").get((req, res) => {
   }
 });
 
+//delete all login records
+router.route("/").delete((req, res) => {
+  const token = req.header("x-access-token");
+  if (auth(token)) {
+    LoginActivity.deleteMany()
+      .then((data) => {
+        res.status(200).json("Deleted Successfully!");
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
+      });
+  } else {
+    res.status(400).json("Authentication Failed");
+  }
+});
+
 module.exports = router;
