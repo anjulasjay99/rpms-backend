@@ -5,7 +5,7 @@ let Student = require("../models/Students");
 //Student Registration
 
 router.route("/add").post((req, res) => {
-  const { firstName, lastName , IdNumber, email, nic, telNo} = req.body;
+  const { firstName, lastName, IdNumber, email, nic, telNo } = req.body;
   const isGrouped = 0;
   const role = "Student";
   const newStudent = new Student({
@@ -89,6 +89,18 @@ router.route("/:id").delete(async (req, res) => {
     .catch((err) => {
       console.log(err);
       res.json(false);
+    });
+});
+
+//get total number of students
+router.route("/totalusers").get((req, res) => {
+  Student.countDocuments()
+    .then((count) => {
+      res.status(200).json({ total: count });
+    })
+    .catch((err) => {
+      res.status(400).json("Error");
+      console.log(err);
     });
 });
 
