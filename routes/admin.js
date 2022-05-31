@@ -130,4 +130,16 @@ router.route("/login").post(async (req, res) => {
     });
 });
 
+//get total number of admin users
+router.route("/totalusers").get((req, res) => {
+  Admin.countDocuments()
+    .then((count) => {
+      res.status(200).json({ total: count });
+    })
+    .catch((err) => {
+      res.status(400).json("Error");
+      console.log(err);
+    });
+});
+
 module.exports = router;
