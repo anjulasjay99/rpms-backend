@@ -127,4 +127,39 @@ router.route("/:id").get((req, res) => {
     });
 });
 
+//delete template
+router.route("/:id").delete((req, res) => {
+  const token = req.header("x-access-token");
+  if (auth(token)) {
+    const id = req.params.id;
+    let templates = fs.readdirSync(templateDir);
+    let file = "";
+
+    for (let i = 0; i < templates.length; i++) {
+      if (templates[i].split("-")[0] === id) {
+        file = templates[i];
+        break;
+      }
+    }
+
+    if (file !== "") {
+      const doc = templateDir + file;
+      fs.unlink(doc, (err) => {
+        console.log(err);
+      });
+    }
+
+    Template.findOneAndDelete({ fileId: id })
+      .then(() => {
+        res.status(200).json("Deleted!");
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
+      });
+  } else {
+    res.status(400).json("Authentication Failed!");
+  }
+});
+
 module.exports = router;
