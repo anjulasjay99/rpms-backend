@@ -102,4 +102,39 @@ router.route("/files/download/:id").get((req, res) => {
   }
 });
 
+//delete marking scheme
+router.route("/:id").delete((req, res) => {
+  const token = req.header("x-access-token");
+  if (auth(token)) {
+    const id = req.params.id;
+    let markingschemes = fs.readdirSync(markingSchemesDir);
+    let file = "";
+
+    for (let i = 0; i < markingschemes.length; i++) {
+      if (markingschemes[i].split("-")[0] === id) {
+        file = markingschemes[i];
+        break;
+      }
+    }
+
+    if (file !== "") {
+      const doc = markingSchemesDir + file;
+      fs.unlink(doc, (err) => {
+        console.log(err);
+      });
+    }
+
+    MarkingScheme.findOneAndDelete({ fileId: id })
+      .then(() => {
+        res.status(200).json("Deleted!");
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.log(err);
+      });
+  } else {
+    res.status(400).json("Authentication Failed!");
+  }
+});
+
 module.exports = router;
