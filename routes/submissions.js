@@ -118,5 +118,28 @@ router.route("/files/download/:id").get((req, res) => {
       });
     });
 
+    // Get Submission by Group Id
+
+    router.route("/getsubmissionByGroup/:id").get(async(req,res) =>{
+      const id = req.params.id;
+      console.log(id);
+      await Submission.find({GroupId : id}).then((submissions)=>{
+        res.json(submissions);
+        console.log(submissions)
+      }).catch((err) =>{
+        console.log(err);
+      })
+    })
+
+    // Get All Submissions
+
+    router.route("/").get(async(req,res) =>{
+      Submission.find().then((data) =>{
+        res.json(data).status(200);
+      }).catch((err) =>{
+        console.log(err);
+      })
+    })
+
 
 module.exports = router;

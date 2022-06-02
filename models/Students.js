@@ -11,6 +11,7 @@ const studentSchema = new Schema({
   password : {type : String},
   telNo: { type: String, required: true },
   isGrouped: { type: Boolean },
+  GroupId: { type: String},
   role: { type: String, required: true },
 });
 
