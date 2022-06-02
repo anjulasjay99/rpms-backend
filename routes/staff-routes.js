@@ -111,4 +111,37 @@ staffRouter.route("/getcoSupervisors").get((req,res) =>{
     })
 })
 
+// Staff Login - Check Username
+
+staffRouter.route("/checkUsername/:username").get(async(req,res) =>{
+  const username = req.params.username;
+  console.log(username)
+  await model.exists({ sliitEmail : username}).then((data) =>{
+    if(data != null){
+      res.json(true);
+  }
+  else{
+    res.json(false);
+  }
+  console.log(data);
+  }).catch((err) =>{
+    console.log(err);
+  });
+});
+
+// Staff Login - Return Password
+
+staffRouter.route("/getPass/:username").get(async(req,res) => {
+
+  const username = req.params.username;
+  console.log(username)
+  await model.find({sliitEmail : username}).then((data) =>{
+    res.json(data);
+  }).catch((err) =>{
+    console.log(err);
+  })
+})
+
+
+
 module.exports = staffRouter;
