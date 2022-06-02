@@ -9,8 +9,9 @@ const documentsSubmissionSchema = new Schema({
   submissionDate: { type: String, required: true },
   marks: { type: Number, required: true },
   status: {type : String},
-  feeback: {type : String},
+  feedback: {type : String},
   docfileId: { type: String, required: false }
+  
 });
 
 const DocumentSubmission = mongoose.model("documentsSubmission", documentsSubmissionSchema);
