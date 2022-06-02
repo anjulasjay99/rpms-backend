@@ -11,6 +11,8 @@ const documentDir = ("./uploads/documents/");
 router.route("/add").post((req,res) =>{
     const p_marks = 0;
     const p_date = new Date();
+    const p_status = "Pending";
+    const p_feedback = "";
 
 
     const {GroupId , submissionType , document } = req.body;
@@ -20,7 +22,9 @@ router.route("/add").post((req,res) =>{
         submissionType,
         document,
         submissionDate : p_date,
-        marks : p_marks
+        marks : p_marks,
+        status: p_status,
+        feedback: p_feedback
 
     });
 
@@ -105,6 +109,8 @@ router.route("/files/download/:id").get((req, res) => {
         Submission.document = req.body.doc;
         Submission.submissionDate = req.body.submissionDate;
         Submission.marks = req.body.marks;
+        Submission.feedback = req.body.feedback;
+        Submission.status = req.body.status;
         Submission
           .save()
           .then((Submission) => {
