@@ -72,8 +72,10 @@ app.use("/topicReg", topicReg);
 app.use("/topicDetails", topicDetailsSubmission);
 app.use("/loginactivities", loginActivityRouter);
 
-app.use("/submissions" , submissions);
+app.use("/submissions", submissions);
 
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);
 });
+
+module.exports = app;

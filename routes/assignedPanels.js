@@ -2,6 +2,7 @@ const router = require("express").Router();
 let AssignedPanel = require("../models/AssignedPanels");
 let jwt = require("jsonwebtoken");
 
+//check if user is authorized
 const auth = (token) => {
   try {
     jwt.verify(token, "adminToken");

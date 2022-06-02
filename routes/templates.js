@@ -101,7 +101,6 @@ router.route("/files/download/:id").get((req, res) => {
 });
 
 //Fetch Template by Name
-
 router.route("/getbyName/:name").get((req, res) => {
   const p_name = req.params.name;
   Template.find({ name: p_name })

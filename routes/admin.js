@@ -3,6 +3,7 @@ let Admin = require("../models/Admin");
 let LoginActivity = require("../models/LoginActivity");
 let jwt = require("jsonwebtoken");
 
+//check if user is authorized
 const auth = (token) => {
   try {
     jwt.verify(token, "adminToken");
@@ -12,6 +13,7 @@ const auth = (token) => {
   }
 };
 
+//create a login record in db
 const createLoginActivity = (user) => {
   const activity = new LoginActivity({
     name: user.firstName + " " + user.lastName,
