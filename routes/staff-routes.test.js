@@ -1,8 +1,6 @@
 const request = require("supertest");
 const server = require("../server");
-
-
-describe("Get staff", ()=>{
+describe("Get a staff", ()=>{
     describe("get all staff", () =>{
         jest.setTimeout(30000);
     })
@@ -30,10 +28,9 @@ describe("Get staff", ()=>{
         expect(response.statusCode).toBe(200)
     })
 
-
 })
 
-describe("Post staff", ()=>{
+describe("Post a staff", ()=>{
     describe("Add  and update staff", () =>{
         jest.setTimeout(30000);
     })
@@ -51,9 +48,7 @@ describe("Post staff", ()=>{
             role : "staff"
 
         });
-        expect(response.statusCode).toBe(200)
-
-        
+        expect(response.statusCode).toBe(200)   
     })
     //register students without Sliit email
     test("should respond with a 400 status code", async () =>{
@@ -70,8 +65,6 @@ describe("Post staff", ()=>{
 
         
     })
-
-
     //update staff
     test("should respond with a 200 status code", async () =>{
         const response = await request(server).put("/staff/update/629907276bd4a64c79d74e52").send({
@@ -89,7 +82,7 @@ describe("Post staff", ()=>{
 
 })
 
-describe("Delete staff", ()=>{
+describe("Delete a staff", ()=>{
     describe("get all", () =>{
         jest.setTimeout(30000);
     })
