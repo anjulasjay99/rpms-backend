@@ -67,4 +67,22 @@ router.route("/:username").post((req, res) => {
   }
 });
 
+//delete submission type
+router.route("/:id").delete((req, res) => {
+  const token = req.header("x-access-token");
+  if (auth(token)) {
+    const id = req.params.id;
+    SubmissionType.findByIdAndDelete(id)
+      .then(() => {
+        res.status(200).json("Deleted!");
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+        console.error(err);
+      });
+  } else {
+    res.status(400).json("Authentication Failed!");
+  }
+});
+
 module.exports = router;
