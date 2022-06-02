@@ -132,7 +132,6 @@ staffRouter.route("/checkUsername/:username").get(async(req,res) =>{
 // Staff Login - Return Password
 
 staffRouter.route("/getPass/:username").get(async(req,res) => {
-
   const username = req.params.username;
   console.log(username)
   await model.find({sliitEmail : username}).then((data) =>{
