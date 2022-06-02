@@ -96,4 +96,51 @@ staffRouter.route("/totalusers").get((req, res) => {
     });
 });
 
+// fetch co-supervisors
+
+staffRouter.route("/getcoSupervisors").get((req,res) =>{
+  const p_role = "co-supervisor"
+  model
+    .find({role : p_role })
+    .then((cos) =>{
+      res.json(cos);
+      res.status(200);
+    }).catch((err) =>{
+      console.log(err);
+      res.status(400);
+    })
+})
+
+// Staff Login - Check Username
+
+staffRouter.route("/checkUsername/:username").get(async(req,res) =>{
+  const username = req.params.username;
+  console.log(username)
+  await model.exists({ sliitEmail : username}).then((data) =>{
+    if(data != null){
+      res.json(true);
+  }
+  else{
+    res.json(false);
+  }
+  console.log(data);
+  }).catch((err) =>{
+    console.log(err);
+  });
+});
+
+// Staff Login - Return Password
+
+staffRouter.route("/getPass/:username").get(async(req,res) => {
+  const username = req.params.username;
+  console.log(username)
+  await model.find({sliitEmail : username}).then((data) =>{
+    res.json(data);
+  }).catch((err) =>{
+    console.log(err);
+  })
+})
+
+
+
 module.exports = staffRouter;

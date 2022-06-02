@@ -5,18 +5,21 @@ let Student = require("../models/Students");
 //Student Registration
 
 router.route("/add").post((req, res) => {
-  const { firstName, lastName, IdNumber, email, nic, telNo } = req.body;
+  const { firstName, lastName, IdNumber, email, nic,  password , telNo  } = req.body;
   const isGrouped = 0;
   const role = "Student";
+  const GroupId = "";
   const newStudent = new Student({
     firstName,
     lastName,
     IdNumber,
     email,
     nic,
+    password,
     telNo,
     isGrouped,
-    role,
+    GroupId,
+    role
   });
 
   newStudent
@@ -92,6 +95,41 @@ router.route("/:id").delete(async (req, res) => {
     });
 });
 
+
+
+// Student Login - Check Username
+
+router.route("/checkUsername/:username").get(async(req,res) =>{
+  const username = req.params.username;
+
+  await Student.exists({ email : username}).then((data) =>{
+    if(data != null){
+      res.json(true);
+  }
+  else{
+    res.json(false);
+  }
+  console.log(data);
+  }).catch((err) =>{
+    console.log(err);
+  });
+});
+
+// Student Login - Return Password
+
+router.route("/getPass/:username").get(async(req,res) => {
+
+  const username = req.params.username;
+
+  await Student.find({email : username}).then((data) =>{
+    res.json(data);
+  }).catch((err) =>{
+    console.log(err);
+  })
+})
+
+
+
 //get total number of students
 router.route("/totalusers").get((req, res) => {
   Student.countDocuments()
@@ -103,5 +141,6 @@ router.route("/totalusers").get((req, res) => {
       console.log(err);
     });
 });
+
 
 module.exports = router;

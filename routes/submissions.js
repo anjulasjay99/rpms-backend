@@ -15,16 +15,19 @@ router.route("/add").post((req,res) =>{
     const p_feedback = "";
 
 
-    const {GroupId , submissionType , document } = req.body;
+    const {GroupId , submissionType , document,  docfileId } = req.body;
+    console.log(docfileId)
     console.log(document);
     const newSubmission = new Submission({
         GroupId,
         submissionType,
         document,
+        docfileId,
         submissionDate : p_date,
         marks : p_marks,
         status: p_status,
         feedback: p_feedback
+    
 
     });
 
@@ -82,6 +85,7 @@ router.route("/getsubmission/:id").get(async(req,res) =>{
 //download document
 router.route("/files/download/:id").get((req, res) => {
     const id = req.params.id;
+    console.log(id)
     let documents = fs.readdirSync(documentDir);
     let file = "";
   
@@ -123,6 +127,29 @@ router.route("/files/download/:id").get((req, res) => {
           });
       });
     });
+
+    // Get Submission by Group Id
+
+    router.route("/getsubmissionByGroup/:id").get(async(req,res) =>{
+      const id = req.params.id;
+      console.log(id);
+      await Submission.find({GroupId : id}).then((submissions)=>{
+        res.json(submissions);
+        console.log(submissions)
+      }).catch((err) =>{
+        console.log(err);
+      })
+    })
+
+    // Get All Submissions
+
+    router.route("/").get(async(req,res) =>{
+      Submission.find().then((data) =>{
+        res.json(data).status(200);
+      }).catch((err) =>{
+        console.log(err);
+      })
+    })
 
 
 module.exports = router;

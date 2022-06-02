@@ -54,6 +54,7 @@ const topicReg = require("./routes/topicsRegs");
 const loginActivityRouter = require("./routes/loginActivities");
 
 const submissions = require("./routes/submissions");
+const ReviewerRouter = require("./routes/reviwer.js");
 
 app.use("/students", studentsRouter);
 app.use("/groups", groupsRouter);
@@ -73,7 +74,7 @@ app.use("/topicDetails", topicDetailsSubmission);
 app.use("/loginactivities", loginActivityRouter);
 
 app.use("/submissions" , submissions);
-
+app.use("/reviewer",ReviewerRouter)
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);
 });

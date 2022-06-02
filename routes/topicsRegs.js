@@ -26,7 +26,7 @@ router.route("/add/:id").post((req,res) =>{
     })
 })
 
-//get topic submission details of specif supervisor
+//get topic submission details by supervisorId
 router.route("/get/:supervisorId").get(async(req,res)=>{
         let supervisorId = req.params.supervisorId;
         await TopicReg.find({supervisorId}).then((submissions)=>{
@@ -86,7 +86,7 @@ router.route("/getByGroup/:id").get((req,res) =>{
 
 // Request CoSupervisor 
 
-router.route("/:id").get((req,res) =>{
+router.route("coSupervisor/:id").put((req,res) =>{
     const grpID = req.params.id;
     const {coSupervisorID} = req.body;
 

@@ -8,8 +8,10 @@ const studentSchema = new Schema({
   IdNumber: { type: String },
   email: { type: String },
   nic: { type: String },
+  password : {type : String},
   telNo: { type: String, required: true },
   isGrouped: { type: Boolean },
+  GroupId: { type: String},
   role: { type: String, required: true },
 });
 
