@@ -145,5 +145,30 @@ router.route("/files/download/:id").get((req, res) => {
       })
     })
 
+    // Get Topic Details Submission By Group ID 
 
+    router.route("/getTDsubmissionByGroup/:id").get(async(req,res) =>{
+      const id = req.params.id;
+      console.log(id);
+      await Submission.find({GroupId : id , submissionType : "Topic Submission"}).then((submissions)=>{
+        res.json(submissions);
+        console.log(submissions)
+      }).catch((err) =>{
+        console.log(err);
+      })
+    })
+
+
+    // Get Other Submissions by Group ID
+
+    router.route("/getOsubmissionByGroup/:id").get(async(req,res) =>{
+      const id = req.params.id;
+      console.log(id);
+      await Submission.find({GroupId : id , submissionType : {$ne : "Topic Submission" }}).then((submissions)=>{
+        res.json(submissions);
+        console.log(submissions)
+      }).catch((err) =>{
+        console.log(err);
+      })
+    })
 module.exports = router;
