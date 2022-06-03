@@ -11,6 +11,8 @@ const documentDir = ("./uploads/documents/");
 router.route("/add").post((req,res) =>{
     const p_marks = 0;
     const p_date = new Date();
+    const p_status = "Pending";
+    const p_feedback = "";
 
 
     const {GroupId , submissionType , document,  docfileId } = req.body;
@@ -23,6 +25,8 @@ router.route("/add").post((req,res) =>{
         docfileId,
         submissionDate : p_date,
         marks : p_marks,
+        status: p_status,
+        feedback: p_feedback
     
 
     });
@@ -103,22 +107,26 @@ router.route("/files/download/:id").get((req, res) => {
   router.route("/update/:id").put(function (req, res) {
     Submission.findById(req.params.id, function (err, Submission) {
         if (!Submission) res.status(404).send("id not found");
-        else 
+        else {
         Submission.GroupId = req.body.GroupId;
         Submission.submissionType = req.body.submissionType;
         Submission.document = req.body.doc;
         Submission.submissionDate = req.body.submissionDate;
         Submission.marks = req.body.marks;
+        Submission.docfileId = req.body.docfileId;
+        Submission.feedback = req.body.feedback;
+        Submission.status = req.body.status;
         Submission
           .save()
           .then((Submission) => {
               console.log(Submission)
-            res.json("Suceessfully updated!");
+            res.json("Sucessfully updated!");
           })
           .catch((err) => {
             res.status(400).send("Update not possible");
             console.log(err)
           });
+        }
       });
     });
 
