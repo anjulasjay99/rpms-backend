@@ -6,7 +6,6 @@ let Student = require("../models/Students");
 //Group Registration
 
 router.route("/add").post((req, res) => {
-
   var MaxID;
   var s;
   var id;
@@ -31,29 +30,30 @@ router.route("/add").post((req, res) => {
     S4contact,
   } = req.body;
 
-  var findMax = () =>{
-    return new Promise(function(fulfill , reject){
-
-      Group.find().sort({_id:-1}).limit(1).then((a) =>{
-        console.log(a[0].groupID);
-        MaxID = a[0].groupID;
-        s = MaxID.split('-');
-        id = parseInt(s[1]);
-        newId = id + 1;
-        groupID = "RSH_GRP-" + newId;
-        console.log(groupID);
-        fulfill();
-      }).catch((err) =>{
-        console.log(err);
-        reject();
-      })
-      
-    })
-
-  }
+  var findMax = () => {
+    return new Promise(function (fulfill, reject) {
+      Group.find()
+        .sort({ _id: -1 })
+        .limit(1)
+        .then((a) => {
+          console.log(a[0].groupID);
+          MaxID = a[0].groupID;
+          s = MaxID.split("-");
+          id = parseInt(s[1]);
+          newId = id + 1;
+          groupID = "RSH_GRP-" + newId;
+          console.log(groupID);
+          fulfill();
+        })
+        .catch((err) => {
+          console.log(err);
+          reject();
+        });
+    });
+  };
 
   //Adding Group Details to the Database
-  function dbCall(){
+  function dbCall() {
     const newGroup = new Group({
       groupID,
       LeaderID,
@@ -73,9 +73,8 @@ router.route("/add").post((req, res) => {
       S4mail,
       S4contact,
     });
-  
-   
-   newGroup
+
+    newGroup
       .save()
       .then(() => {
         res.json("Group Added");
@@ -83,9 +82,18 @@ router.route("/add").post((req, res) => {
       .catch((err) => {
         console.log(err);
       });
-  
-      // Updating Group ID of leader after registration
-      Student.updateOne(
+
+    Student.findOneAndUpdate(
+      { email: Leadermail },
+      { isGrouped: true, GroupId: groupID }
+    )
+      .then(() => {
+        console.log("Updated");
+      })
+      .catch((err) => console.log(err));
+
+    // Updating Group ID of leader after registration
+    /*  Student.updateOne(
         {
           "email" : Leadermail
         },
@@ -96,20 +104,15 @@ router.route("/add").post((req, res) => {
           }
         }
   
-      );
-      console.log(Leadermail);
-      console.log(groupID);
+      ); */
+    console.log(Leadermail);
+    console.log(groupID);
   }
 
- findMax().then(function(){
-   dbCall();
- });
-  
-
-
+  findMax().then(function () {
+    dbCall();
+  });
 });
-
-
 
 //get all registered groups
 router.route("/").get((req, res) => {
