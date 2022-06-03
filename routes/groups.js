@@ -83,6 +83,8 @@ router.route("/add").post((req, res) => {
         console.log(err);
       });
 
+    // Updating Group ID of leader after registration
+    
     Student.findOneAndUpdate(
       { email: Leadermail },
       { isGrouped: true, GroupId: groupID }
@@ -92,19 +94,8 @@ router.route("/add").post((req, res) => {
       })
       .catch((err) => console.log(err));
 
-    // Updating Group ID of leader after registration
-    /*  Student.updateOne(
-        {
-          "email" : Leadermail
-        },
-        {
-          $set : {
-            isGrouped : true,
-            GroupId : groupID
-          }
-        }
-  
-      ); */
+
+
     console.log(Leadermail);
     console.log(groupID);
   }
