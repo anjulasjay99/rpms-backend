@@ -29,6 +29,7 @@ router.route("/add/:id").post((req,res) =>{
 //get topic submission details by supervisorId
 router.route("/get/:supervisorId").get(async(req,res)=>{
         let supervisorId = req.params.supervisorId;
+        console.log(supervisorId)
         await TopicReg.find({supervisorId}).then((submissions)=>{
             res.json(submissions);
         })
