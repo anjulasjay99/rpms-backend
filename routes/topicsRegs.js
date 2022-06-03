@@ -91,14 +91,23 @@ router.route("coSupervisor/:id").put((req,res) =>{
     const grpID = req.params.id;
     const {coSupervisorID} = req.body;
 
-    TopicReg.updateOne(
-        {groupId : grpID},
-        {
-            $set : {
-                cosupervisorId : coSupervisorID
-            }
-        }
-    )
+    // TopicReg.updateOne(
+    //     {groupId : grpID},
+    //     {
+    //         $set : {
+    //             cosupervisorId : coSupervisorID
+    //         }
+    //     }
+    // )
+
+    TopicReg.findOneAndUpdate(
+        {groupId : grpID} ,
+        { cosupervisorId: coSupervisorID }
+    ).then((res) =>{
+        console.log("Updated!");
+    }).catch((err) =>{
+        console.log(err);
+    })
     
 
 })
