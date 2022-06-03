@@ -22,6 +22,7 @@ router.route("/add").post((req,res) =>{
         res.json("Topic Details submitted!");
     }).catch((err) =>{
         console.log(err);
+        res.status(400);
 
     });
 });

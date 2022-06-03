@@ -23,9 +23,11 @@ router.route("/add").post((req, res) => {
     .save()
     .then(() => {
       res.json("Student Added");
+      res.status(200);
     })
     .catch((err) => {
       console.log(err);
+      res.status(400);
     });
 });
 

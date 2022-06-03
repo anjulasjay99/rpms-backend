@@ -59,10 +59,11 @@ router.route("/add").post((req, res) => {
   newGroup
     .save()
     .then(() => {
-      res.json("Group Added");
+      res.status(200).json("Group Added");
     })
     .catch((err) => {
       console.log(err);
+      res.status(400);
     });
 });
 

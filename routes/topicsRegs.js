@@ -20,8 +20,9 @@ router.route("/add/:id").post((req,res) =>{
     })
 
     newTopicReg.save().then(()=>{
-        res.json("Topic submitted for revision!");
+        res.json("Topic submitted for revision!").status(200);
     }).catch((err) =>{
+        res.status(400);
         console.log(err);
     })
 })
@@ -77,9 +78,10 @@ router.route("/").get((req,res) =>{
 router.route("/getByGroup/:id").get((req,res) =>{
     const grpID = req.params.id;
     TopicReg.find({groupId : grpID }).then((topics) =>{
-        res.json(topics);
+        res.json(topics).status(200);
     }).catch((err) =>{
         console.log(err);
+        res.status(400);
     })
 })
 
@@ -97,7 +99,11 @@ router.route("coSupervisor/:id").put((req,res) =>{
                 cosupervisorId : coSupervisorID
             }
         }
-    )
+    ).then(() =>{
+        res.status(200);
+    }).catch((err) =>{
+        res.status(400)
+    })
     
 
 })
