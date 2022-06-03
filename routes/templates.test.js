@@ -18,12 +18,12 @@ describe("GET /templates", () => {
         .send();
       expect(response.statusCode).toBe(200);
     });
-  });
 
-  //trying to fetch a unavailable template
-  test("should respond with a 400 status code", async () => {
-    const response = await request(server).get("/templates/1234567").send();
-    expect(response.statusCode).toBe(400);
+    //trying to fetch a unavailable template
+    test("should respond with a 400 status code", async () => {
+      const response = await request(server).get("/templates/1234567").send();
+      expect(response.statusCode).toBe(400);
+    });
   });
 });
 
@@ -104,5 +104,39 @@ describe("POST /templates", () => {
         visibility: "Public",
       });
     expect(response.statusCode).toBe(200);
+  });
+
+  //sending a request without file id in the body
+  test("should respond with a 400 status code", async () => {
+    const response = await request(server)
+      .post("/templates/anjulasjay@gmail.com")
+      .set({
+        "x-access-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuanVsYXNqYXlAZ21haWwuY29tIiwidGVsTm8iOiIwNzcyNjY1MTMzIiwiaWF0IjoxNjUyNTAyNzM0fQ.aVmPU9lH8OVCdb0-8B2OyCPRFe8CURvf8vKiGFaK9YA",
+      })
+      .send({
+        name: "test",
+        description: "",
+        document: "document.txt",
+        visibility: "Public",
+      });
+    expect(response.statusCode).toBe(400);
+  });
+
+  //sending a request without name in the body
+  test("should respond with a 400 status code", async () => {
+    const response = await request(server)
+      .post("/templates/anjulasjay@gmail.com")
+      .set({
+        "x-access-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuanVsYXNqYXlAZ21haWwuY29tIiwidGVsTm8iOiIwNzcyNjY1MTMzIiwiaWF0IjoxNjUyNTAyNzM0fQ.aVmPU9lH8OVCdb0-8B2OyCPRFe8CURvf8vKiGFaK9YA",
+      })
+      .send({
+        description: "",
+        document: "document.txt",
+        fileId: "123456789",
+        visibility: "Public",
+      });
+    expect(response.statusCode).toBe(400);
   });
 });
